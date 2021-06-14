@@ -22,6 +22,8 @@ requirements:
     - idna >=2.0.0
     - pip
     - python
+    - setuptools
+    - wheel
   run:
     - dnspython >=1.15.0
     - idna >=2.0.0
@@ -36,9 +38,11 @@ test:
     - flake8
     - pytest
     - pytest-cov
+    - pip
   imports:
     - email_validator
   commands:
+    - pip check
     - email_validator --help
     - pytest --cov=email_validator
 
