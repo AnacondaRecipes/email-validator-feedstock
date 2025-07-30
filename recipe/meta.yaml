@@ -7,7 +7,8 @@ package:
 
 source:
   url: https://github.com/JoshData/python-email-validator/archive/v{{ version }}.tar.gz
-  sha256: 3a34d9b8044aa37de12a2e6ddf485ff036b41cc33ba67961bea6c5f0e3d560ba
+  #sha256: 3a34d9b8044aa37de12a2e6ddf485ff036b41cc33ba67961bea6c5f0e3d560ba
+  sha256: 0cd656b4c2cba10bcb518808f800bdde74af0c01a2522a9d475b3b1954d98f01
 
 build:
   number: 0
