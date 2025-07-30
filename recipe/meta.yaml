@@ -1,5 +1,5 @@
 {% set name = "email-validator" %}
-{% set version = "1.2.1" %}
+{% set version = "2.0.0" %}
 
 package:
   name: {{ name|lower }}-meta
@@ -7,33 +7,26 @@ package:
 
 source:
   url: https://github.com/JoshData/python-email-validator/archive/v{{ version }}.tar.gz
-  sha256: 1ac47d82c6f6b924f4cde3cf1dbd24249d2272ba338ad2aedc616838fd8d88bd
+  #sha256: 3a34d9b8044aa37de12a2e6ddf485ff036b41cc33ba67961bea6c5f0e3d560ba
+  sha256: 0cd656b4c2cba10bcb518808f800bdde74af0c01a2522a9d475b3b1954d98f01
 
 build:
   number: 0
-  skip: True  # [py<37]
-
-requirements:
-  host:
-    - python
-    - pip
-    - setuptools
-    - wheel
+  noarch: python
 
 outputs:
   - name: {{ name|lower }}
     build:
-      entry_points:
-        - email_validator = email_validator:main
-      script: python -m pip install . --no-deps -vv
+      noarch: python
+      #entry_points:
+      #  - email_validator = email_validator:main
+    script: build_email_validator.sh
     requirements:
       host:
-        - python
+        - python >=3.7
         - pip
-        - setuptools
-        - wheel
       run:
-        - python
+        - python >=3.7
         - idna >=2.0.0
         - dnspython >=1.15.0
     test:
@@ -48,7 +41,7 @@ outputs:
       imports:
         - email_validator
       commands:
-        - email_validator --help
+        #- email_validator --help
         - pytest --cov=email_validator
 
   # Provide package with alternative name for backward compatibility
@@ -75,6 +68,11 @@ about:
 
 extra:
   feedstock-name: email-validator
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/49522
+    reason: Client request
+  recipe-maintainers:
+    - ianaobi
   recipe-maintainers:
     - xylar
     - pmlandwehr
