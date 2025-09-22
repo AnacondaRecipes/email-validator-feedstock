@@ -6,26 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/JoshData/python-email-validator/archive/v{{ version }}.tar.gz
+  url: https://github.com/JoshData/python-{{ name }}/archive/v{{ version }}.tar.gz
   sha256: 578564e92e66874bfb6c7506b4b33e7abd79f0e9b99dedd979d03fcd5fc4f039
 
 build:
   number: 0
-  skip: true  # [py<37]
-
-requirements:
-  host:
-    - python
-    - pip
-    - setuptools
-    - wheel
+  skip: true  # [py<38]
 
 outputs:
   - name: {{ name|lower }}
+    script: build-output.sh # [unix]
+    script: build-output.bat # [win]
     build:
       entry_points:
-        - email_validator = email_validator:main
-      script: python -m pip install . --no-deps -vv
+        - email_validator = email_validator.__main__:main
     requirements:
       host:
         - python
@@ -35,21 +29,19 @@ outputs:
       run:
         - python
         - idna >=2.0.0
-        - dnspython >=1.15.0
+        - dnspython >=2.0.0
     test:
       source_files:
         - tests
       requires:
-        - coverage
-        - docutils
-        - flake8
+        - pip
         - pytest
-        - pytest-cov
       imports:
         - email_validator
       commands:
+        - pip check
         - email_validator --help
-        - pytest --cov=email_validator
+        - pytest -v tests
   # Provide package with alternative name for backward compatibility
   - name: email_validator
     build:
@@ -65,10 +57,14 @@ outputs:
 
 about:
   home: https://github.com/JoshData/python-email-validator
-  license: CC0-1.0
-  license_family: CC
+  license: Unlicense
+  license_family: OTHER
   license_file: LICENSE
-  summary: A robust email syntax and deliverability validation library for 3.x.
+  summary: A robust email syntax and deliverability validation library for Python 3.8+.
+  description: |
+    This library validates that a string is of the form name@example.com and optionally checks
+    that the domain name is set up to receive email. This is the sort of validation you would
+    want when you are identifying users by their email address like on a registration form.
   doc_url: https://github.com/JoshData/python-email-validator
   dev_url: https://github.com/JoshData/python-email-validator
 
