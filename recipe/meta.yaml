@@ -1,5 +1,5 @@
 {% set name = "email-validator" %}
-{% set version = "2.3.0" %}
+{% set version = "2.4.0" %}
 
 package:
   name: {{ name|lower }}-meta
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/JoshData/python-{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 578564e92e66874bfb6c7506b4b33e7abd79f0e9b99dedd979d03fcd5fc4f039
+  sha256: 6e23ab8eb4dfd650dd7b2fb42c6cb8be98f1086411bfd6d7795e70e209ca9eb6
 
 build:
   number: 0
@@ -15,8 +15,8 @@ build:
 
 outputs:
   - name: {{ name|lower }}
-    script: build-output.sh # [unix]
-    script: build-output.bat # [win]
+    script: build-output.sh  # [unix]
+    script: build-output.bat  # [win]
     build:
       entry_points:
         - email_validator = email_validator.__main__:main
