@@ -1,20 +1,20 @@
 {% set name = "email-validator" %}
-{% set version = "2.3.0" %}
+{% set version = "2.4.0" %}
 
 package:
-  name: {{ name|lower }}-meta
+  name: {{ name }}-meta
   version: {{ version }}
 
 source:
   url: https://github.com/JoshData/python-{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 578564e92e66874bfb6c7506b4b33e7abd79f0e9b99dedd979d03fcd5fc4f039
+  sha256: 6e23ab8eb4dfd650dd7b2fb42c6cb8be98f1086411bfd6d7795e70e209ca9eb6
 
 build:
   number: 0
-  skip: true  # [py<38]
+  skip: true  # [py<310]
 
 outputs:
-  - name: {{ name|lower }}
+  - name: {{ name }}
     script: build-output.sh # [unix]
     script: build-output.bat # [win]
     build:
@@ -41,7 +41,7 @@ outputs:
       commands:
         - pip check
         - email_validator --help
-        - pytest -v tests
+        - pytest -vv tests
   # Provide package with alternative name for backward compatibility
   - name: email_validator
     build:
@@ -60,7 +60,7 @@ about:
   license: Unlicense
   license_family: OTHER
   license_file: LICENSE
-  summary: A robust email syntax and deliverability validation library for Python 3.8+.
+  summary: A robust email syntax and deliverability validation library.
   description: |
     This library validates that a string is of the form name@example.com and optionally checks
     that the domain name is set up to receive email. This is the sort of validation you would
